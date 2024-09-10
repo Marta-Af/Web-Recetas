@@ -1,1 +1,3 @@
-# Web-Recetas
+# Proyecto plantilla
+
+¡Rellena este fichero!
