@@ -2,6 +2,7 @@
 @import "core/header";
 @import "core/landing";
 @import "core/footer";
+@import "core/login";
 
 .app {
   display: flex;
@@ -10,6 +11,5 @@
 
   .page {
     flex: 1; // Ocupa el espacio restante entre el header y el footer
-    // padding: 2rem; // Ajusta el espaciado según sea necesario
   }
 }
