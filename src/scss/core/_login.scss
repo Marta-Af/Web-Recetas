@@ -3,11 +3,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh; /* Asegura que el contenedor ocupe toda la altura de la ventana */
+  min-height: calc(
+    100vh - 12.8rem
+  ); /* Asegura que el contenedor ocupe toda la altura de la ventana */
   padding: 0;
-  background: radial-gradient(circle, #f3f4f6, #e5e7eb); /* Fondo opcional */
+  background: radial-gradient(
+    circle,
+    rgb(223, 224, 209) 0%,
+    rgb(213, 241, 235) 100%
+  );
   box-sizing: border-box;
-  overflow: hidden; /* Elimina cualquier scroll no deseado en el contenedor */
+  overflow: hidden;
+  margin-top: 6.8rem; /* Elimina cualquier scroll no deseado en el contenedor */
 }
 
 /* Estilo para el contenedor del formulario */
@@ -28,7 +35,8 @@
 .login-title {
   font-size: 2.25rem; /* Tamaño de fuente mayor para un diseño impactante */
   font-family: "Caveat", cursive;
-  color: #333333;
+  font-weight: bold;
+  color: rgb(82, 13, 243);
   margin-bottom: 1.5rem;
   text-align: center;
 }
@@ -45,6 +53,7 @@
 .login-label {
   font-size: 1.125rem; /* Tamaño de fuente ligeramente mayor */
   color: #555555;
+  font-family: "Caveat", cursive;
 }
 
 /* Estilo para los campos de entrada */
