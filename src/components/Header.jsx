@@ -13,12 +13,12 @@ function Header() {
         <nav>
           <ul>
             <li>
-              <Link to="/Login" className="nav-link">
+              <Link to="/login" className="nav-link">
                 Login
               </Link>
             </li>
             <li>
-              <Link to="/Register" className="nav-link">
+              <Link to="/register" className="nav-link">
                 Registrate
               </Link>
             </li>

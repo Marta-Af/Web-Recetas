@@ -1,70 +1,112 @@
-// .login-container {
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: center;
-//   min-height: 80vh; /* Adjust according to the available space */
-//   padding: 2rem;
-//   background: radial-gradient(circle, #f3f4f6, #e5e7eb);
-//   border-radius: 8px;
-//   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+/* Estilo global para el contenedor principal */
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh; /* Asegura que el contenedor ocupe toda la altura de la ventana */
+  padding: 0;
+  background: radial-gradient(circle, #f3f4f6, #e5e7eb); /* Fondo opcional */
+  box-sizing: border-box;
+  overflow: hidden; /* Elimina cualquier scroll no deseado en el contenedor */
+}
 
-//   @media screen and (max-width: 767px) {
-//     min-height: auto;
-//   }
-// }
+/* Estilo para el contenedor del formulario */
+.login-form-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #ffffff; /* Fondo blanco para el contenedor del formulario */
+  padding: 2rem; /* Espaciado interno del contenedor del formulario */
+  border-radius: 12px; /* Borde más redondeado para un diseño moderno */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Sombra más pronunciada */
+  width: 100%;
+  max-width: 360px; /* Ajusta el ancho máximo del contenedor del formulario */
+  box-sizing: border-box;
+}
 
-// .login-title {
-//   font-size: 2rem;
-//   font-family: "Caveat", cursive;
-//   color: #333;
-//   margin-bottom: 1.5rem;
-// }
+/* Estilo para el título del formulario */
+.login-title {
+  font-size: 2.25rem; /* Tamaño de fuente mayor para un diseño impactante */
+  font-family: "Caveat", cursive;
+  color: #333333;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
 
-// .login-form {
-//   display: flex;
-//   flex-direction: column;
-//   width: 100%;
-//   max-width: 400px;
-//   gap: 1rem;
-// }
+/* Estilo para el formulario */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1rem;
+}
 
-// .login-label {
-//   font-size: 1rem;
-//   color: #555;
-// }
+/* Estilo para las etiquetas del formulario */
+.login-label {
+  font-size: 1.125rem; /* Tamaño de fuente ligeramente mayor */
+  color: #555555;
+}
 
-// .login-input {
-//   padding: 0.75rem;
-//   border: 1px solid #ccc;
-//   border-radius: 4px;
-//   font-size: 1rem;
-//   outline: none;
-//   transition: border-color 0.3s ease;
+/* Estilo para los campos de entrada */
+.login-input {
+  padding: 0.85rem; /* Padding ligeramente mayor para un aspecto más cómodo */
+  border: 1px solid #d1d5db; /* Color de borde más suave */
+  border-radius: 8px; /* Borde más redondeado */
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+}
 
-//   &:focus {
-//     border-color: #4f46e5;
-//     box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
-//   }
-// }
+/* Estilo para el enfoque de los campos de entrada */
+.login-input:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.2); /* Sombra de enfoque más pronunciada */
+}
 
-// .login-button {
-//   padding: 0.75rem;
-//   border: none;
-//   border-radius: 4px;
-//   font-size: 1rem;
-//   font-weight: bold;
-//   color: #fff;
-//   background: linear-gradient(145deg, #4f46e5, #3b82f6);
-//   cursor: pointer;
-//   transition: background 0.3s ease, box-shadow 0.3s ease;
+/* Estilo para el botón de envío */
+.login-button {
+  padding: 0.85rem;
+  border: none;
+  border-radius: 8px; /* Borde más redondeado */
+  font-size: 1.125rem; /* Tamaño de fuente mayor para mayor legibilidad */
+  font-weight: bold;
+  color: #ffffff;
+  background: linear-gradient(145deg, #4f46e5, #3b82f6);
+  cursor: pointer;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+}
 
-//   &:hover {
-//     background: #3b82f6;
-//     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-//   }
-// }
+/* Estilo para el enfoque del botón de envío */
+.login-button:focus {
+  outline: none;
+}
 
-// .login-button:focus {
-//   outline: none;
-// }
+/* Estilo para el botón de envío en estado de hover */
+.login-button:hover {
+  background: #3b82f6;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .login-title {
+    font-size: 1.75rem;
+    font-weight: bold;
+    color: rgb(82, 13, 243);
+  }
+
+  .login-form {
+    gap: 0.75rem;
+  }
+
+  .login-input {
+    font-size: 0.875rem;
+  }
+
+  .login-button {
+    font-size: 1rem;
+    padding: 0.75rem;
+  }
+}

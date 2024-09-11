@@ -2,7 +2,7 @@ const Register = () => {
   return (
     <div className="div_reg">
       <div className="div_form">
-        <form className="form" onSubmit={handleSubmit}>
+        <form className="form">
           <h2>Registro</h2>
           <div className="fields">
             <input type="text" />
