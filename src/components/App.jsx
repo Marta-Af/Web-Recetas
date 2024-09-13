@@ -1,10 +1,12 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; // Usa Routes en lugar de Switch
 import Landing from "./Landing";
 import Header from "./Header";
 import Login from "./InfoLogin/Login";
-import Register from "./InfoRegister/InputEmail";
+import Register from "./InfoRegister/Register";
 import Footer from "./Footer";
+import RecipesList from "./Recipes/RecipeList";
+import RecipeDetail from "./Recipes/RecipeDetail";
 
 function App() {
   return (
@@ -14,6 +16,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/receta/:id" element={<RecipeDetail />} />
+          <Route path="/recipes" element={<RecipesList />} />
           <Route path="/register" element={<Register />} />
         </Routes>
       </div>
@@ -21,4 +25,5 @@ function App() {
     </div>
   );
 }
+
 export default App;

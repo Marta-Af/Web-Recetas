@@ -3,9 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: calc(
-    100vh - 12.8rem
-  ); /* Asegura que el contenedor ocupe toda la altura de la ventana */
+  min-height: calc(100vh - 12.8rem);
   padding: 0;
   background: radial-gradient(
     circle,
@@ -14,7 +12,7 @@
   );
   box-sizing: border-box;
   overflow: hidden;
-  margin-top: 6.8rem; /* Elimina cualquier scroll no deseado en el contenedor */
+  margin-top: 6.8rem;
 }
 
 /* Estilo para el contenedor del formulario */
@@ -22,18 +20,18 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: #ffffff; /* Fondo blanco para el contenedor del formulario */
-  padding: 2rem; /* Espaciado interno del contenedor del formulario */
-  border-radius: 12px; /* Borde más redondeado para un diseño moderno */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Sombra más pronunciada */
+  background: #ffffffbb;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 360px; /* Ajusta el ancho máximo del contenedor del formulario */
+  max-width: 360px;
   box-sizing: border-box;
 }
 
 /* Estilo para el título del formulario */
 .login-title {
-  font-size: 2.25rem; /* Tamaño de fuente mayor para un diseño impactante */
+  font-size: 2.25rem;
   font-family: "Caveat", cursive;
   font-weight: bold;
   color: rgb(82, 13, 243);
@@ -46,39 +44,70 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
-/* Estilo para las etiquetas del formulario */
-.login-label {
-  font-size: 1.125rem; /* Tamaño de fuente ligeramente mayor */
-  color: #555555;
-  font-family: "Caveat", cursive;
-}
-
-/* Estilo para los campos de entrada */
-.login-input {
-  padding: 0.85rem; /* Padding ligeramente mayor para un aspecto más cómodo */
-  border: 1px solid #d1d5db; /* Color de borde más suave */
-  border-radius: 8px; /* Borde más redondeado */
-  font-size: 1rem;
-  outline: none;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+/* Efecto de label flotante */
+.form-field {
+  position: relative;
+  margin-bottom: 1rem;
   width: 100%;
 }
 
-/* Estilo para el enfoque de los campos de entrada */
+.login-input {
+  width: 100%;
+  padding: 0.85rem 0.5rem;
+  font-size: 1rem;
+  border: none;
+  border-bottom: 2px solid #d1d5db;
+  background: transparent;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
 .login-input:focus {
-  border-color: #4f46e5;
-  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.2); /* Sombra de enfoque más pronunciada */
+  border-bottom: 2px solid #4f46e5;
+}
+
+/* Estilos cuando el campo está lleno */
+.filled ~ .floating-label,
+.login-input:focus ~ .floating-label {
+  transform: translateY(-1.5rem);
+  font-size: 0.875rem;
+  color: #4f46e5;
+}
+
+.floating-label {
+  position: absolute;
+  top: 0.85rem;
+  left: 0.5rem;
+  font-size: 1rem;
+  color: #555555;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+/* Estilos de error */
+.form-field.error .login-input {
+  border-bottom: 2px solid red;
+}
+
+.form-field.error .floating-label {
+  color: red;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
 }
 
 /* Estilo para el botón de envío */
 .login-button {
   padding: 0.85rem;
   border: none;
-  border-radius: 8px; /* Borde más redondeado */
-  font-size: 1.125rem; /* Tamaño de fuente mayor para mayor legibilidad */
+  border-radius: 8px;
+  font-size: 1.125rem;
   font-weight: bold;
   color: #ffffff;
   background: linear-gradient(145deg, #4f46e5, #3b82f6);
@@ -87,23 +116,15 @@
   width: 100%;
 }
 
-/* Estilo para el enfoque del botón de envío */
-.login-button:focus {
-  outline: none;
-}
-
-/* Estilo para el botón de envío en estado de hover */
 .login-button:hover {
   background: #3b82f6;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 /* Estilos responsivos */
 @media (max-width: 768px) {
   .login-title {
     font-size: 1.75rem;
-    font-weight: bold;
-    color: rgb(82, 13, 243);
   }
 
   .login-form {
