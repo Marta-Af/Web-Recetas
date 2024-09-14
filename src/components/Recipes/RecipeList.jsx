@@ -1,11 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import TortilladePatatas from "../images/TortilladePatatas.png";
+import Paella from "../images/Paella.png";
 
 const recipes = [
   {
     id: 1,
     name: "Ensalada César",
-    image: "https://via.placeholder.com/150",
+    image: TortilladePatatas,
     ingredients: [
       "Lechuga",
       "Pollo",
@@ -20,7 +22,7 @@ const recipes = [
   {
     id: 2,
     name: "Paella",
-    image: "https://via.placeholder.com/150",
+    image: Paella,
     ingredients: ["Arroz", "Pollo", "Mariscos", "Verduras", "Caldo de pescado"],
     instructions:
       "Cocina el arroz con el caldo y añade los demás ingredientes.",
@@ -88,7 +90,7 @@ const RecipesList = () => {
               <h4>Ingredientes:</h4>
               <ul className="ingredients-list">
                 {recipe.ingredients.map((ingredient, index) => (
-                  <li key={index}>{ingredient}</li>
+                  <li key={`${recipe.id}-${index}`}>{ingredient}</li>
                 ))}
               </ul>
               <h4>Modo de empleo:</h4>
