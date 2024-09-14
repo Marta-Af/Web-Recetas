@@ -1,103 +1,120 @@
-/* Contenedor principal de RecipeDetail */
+/* General styles */
 .recipe-detail-container {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
+  padding: 20px;
+  gap: 30px;
   max-width: 1200px;
-  margin: 2rem auto;
-  padding: 1rem;
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  gap: 2rem;
+  margin: 0 auto;
 }
 
-/* Estilos para la imagen de la receta */
-.recipe-detail-image {
+.recipe-info {
   flex: 1;
-  max-width: 45%;
-  border-radius: 12px;
-  object-fit: cover;
 }
 
-/* Estilos para la información de la receta */
-.recipe-detail-info {
-  flex: 2;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+.recipe-image-container {
+  flex: 1;
+  text-align: right;
 }
 
-/* Título de la receta */
-.recipe-detail-title {
-  font-size: 2rem;
-  font-family: "Caveat", cursive;
-  font-weight: bold;
-  color: rgb(82, 13, 243);
-  margin-bottom: 1rem;
+.recipe-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
 }
 
-/* Estilos para los ingredientes */
-.recipe-detail-ingredients h3 {
-  font-size: 1.5rem;
-  color: #555;
-  margin-bottom: 0.5rem;
-}
-
-.recipe-detail-ingredients ul {
-  list-style-type: none;
-  padding-left: 0;
-}
-
-.recipe-detail-ingredients li {
-  font-size: 1rem;
-  margin-bottom: 0.3rem;
+/* Headings and sections */
+.recipe-name {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
   color: #333;
 }
 
-/* Estilos para las instrucciones */
-.recipe-detail-instructions h3 {
-  font-size: 1.5rem;
+.section-title {
+  font-size: 1.8rem;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: #444;
+}
+
+/* Ingredients list */
+.ingredients-list {
+  list-style-type: disc;
+  padding-left: 20px;
+  margin-bottom: 20px;
+}
+
+.ingredients-list li {
+  font-size: 1.2rem;
+  margin-bottom: 5px;
   color: #555;
-  margin-bottom: 0.5rem;
 }
 
-.recipe-detail-instructions p {
-  font-size: 1rem;
-  color: #333;
-  line-height: 1.5;
+/* Recipe instructions */
+.recipe-instructions {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 20px;
 }
 
-/* Estilos para la dificultad y tiempo */
-.recipe-detail-meta {
-  display: flex;
-  gap: 2rem;
-  font-size: 1rem;
-}
-
-.recipe-detail-meta span {
+/* Recipe difficulty */
+.recipe-difficulty {
+  font-size: 1.2rem;
   font-weight: bold;
-  color: rgb(82, 13, 243);
+  color: #333;
 }
 
-/* Estilos responsivos */
-@media (max-width: 768px) {
+/* Responsive design */
+@media screen and (max-width: 1024px) {
   .recipe-detail-container {
     flex-direction: column;
     align-items: center;
-  }
-
-  .recipe-detail-image {
-    max-width: 100%;
-    margin-bottom: 1rem;
-  }
-
-  .recipe-detail-info {
     text-align: center;
   }
 
-  .recipe-detail-meta {
-    flex-direction: column;
-    gap: 1rem;
+  .recipe-info {
+    text-align: left;
+    max-width: 100%;
+  }
+
+  .recipe-image-container {
+    max-width: 100%;
+  }
+
+  .recipe-image {
+    max-width: 70%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .recipe-info,
+  .recipe-image-container {
+    max-width: 100%;
+  }
+
+  .recipe-image {
+    max-width: 90%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .recipe-info {
+    text-align: center;
+  }
+
+  .recipe-name {
+    font-size: 2rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .ingredients-list li,
+  .recipe-instructions,
+  .recipe-difficulty {
+    font-size: 1rem;
   }
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; // Usa Routes en lugar de Switch
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Landing from "./Landing";
 import Header from "./Header";
 import Login from "./InfoLogin/Login";
