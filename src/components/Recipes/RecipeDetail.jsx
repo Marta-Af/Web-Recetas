@@ -1,5 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faShareAlt } from "@fortawesome/free-solid-svg-icons";
 import Paella from "../images/Paella.png";
 
 // Lista de recetas (puedes reemplazar esto con una solicitud a una API)
@@ -15,7 +17,8 @@ const recipes = [
       "Queso parmesano",
       "Salsa César",
     ],
-    instructions: "Mezcla todos los ingredientes y añade la salsa.",
+    instructions:
+      "Mezcla todos los ingredientes y añade la salsa.Mezcla todos los ingredientes y añade la salsa.Mezcla todos los ingredientes y añade la salsa.Mezcla todos los ingredientes y añade la salsa.Mezcla todos los ingredientes y añade la salsa.Mezcla todos los ingredientes y añade la salsa.Mezcla todos los ingredientes y añade la salsa.Mezcla todos los ingredientes y añade la salsa.Mezcla todos los ingredientes y añade la salsa.Mezcla todos los ingredientes y añade la salsa.",
     difficulty: "Fácil",
   },
   {
@@ -43,7 +46,25 @@ const RecipeDetail = () => {
 
   return (
     <div className="recipe-detail-container">
+      <div className="recipe-image-container">
+        <img src={recipe.image} alt={recipe.name} className="recipe-image" />
+      </div>
       <div className="recipe-info">
+        <div className="button-container">
+          <button
+            className="edit-button"
+            onClick={() => alert("Editar receta")}
+          >
+            <FontAwesomeIcon icon={faEdit} size="2x" />
+          </button>
+          <button
+            className="edit-button"
+            onClick={() => alert("Editar receta")}
+          >
+            <FontAwesomeIcon icon={faShareAlt} size="2x" />
+          </button>
+        </div>
+
         <h2 className="recipe-name">{recipe.name}</h2>
         <h3 className="section-title">Ingredientes</h3>
         <ul className="ingredients-list">
@@ -54,9 +75,6 @@ const RecipeDetail = () => {
         <h3 className="section-title">Modo de empleo</h3>
         <p className="recipe-instructions">{recipe.instructions}</p>
         <p className="recipe-difficulty">Dificultad: {recipe.difficulty}</p>
-      </div>
-      <div className="recipe-image-container">
-        <img src={recipe.image} alt={recipe.name} className="recipe-image" />
       </div>
     </div>
   );

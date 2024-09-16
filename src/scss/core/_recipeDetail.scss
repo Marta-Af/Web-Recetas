@@ -8,6 +8,7 @@
   gap: 30px;
   max-width: 1200px;
   margin: 0 auto;
+  padding: 6rem 1rem 1rem 1rem;
 }
 
 .recipe-info {
@@ -24,16 +25,38 @@
   height: auto;
   border-radius: 8px;
 }
+/* Estilos del ícono de editar */
+.button-container {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+.edit-button {
+  background-color: transparent; /* Fondo transparente */
+  border: none; /* Sin bordes */
+  cursor: pointer;
+  color: rgb(82, 13, 243);
+  transition: color 0.3s ease;
+  margin: 1rem;
+  height: auto;
+}
 
+.edit-button:hover {
+  color: #ff9800; /* Cambiar color al hacer hover */
+}
+
+.edit-button .fa-edit {
+  font-size: 2rem; /* Tamaño del ícono */
+}
 /* Headings and sections */
 .recipe-name {
-  font-size: 2.5rem;
+  font-size: 2rem;
   margin-bottom: 20px;
   color: #333;
 }
 
 .section-title {
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   margin-top: 20px;
   margin-bottom: 10px;
   color: #444;
@@ -47,21 +70,21 @@
 }
 
 .ingredients-list li {
-  font-size: 1.2rem;
+  font-size: 1rem;
   margin-bottom: 5px;
   color: #555;
 }
 
 /* Recipe instructions */
 .recipe-instructions {
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: #666;
   margin-bottom: 20px;
 }
 
 /* Recipe difficulty */
 .recipe-difficulty {
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: bold;
   color: #333;
 }
@@ -81,10 +104,13 @@
 
   .recipe-image-container {
     max-width: 100%;
+    text-align: center;
+    margin: 0 auto;
   }
 
   .recipe-image {
     max-width: 70%;
+    height: auto;
   }
 }
 
@@ -93,28 +119,33 @@
   .recipe-image-container {
     max-width: 100%;
   }
-
+  .edit-button .fa-edit {
+    font-size: 2.5rem; /* Ícono más grande en móviles */
+  }
   .recipe-image {
     max-width: 90%;
   }
 }
 
 @media screen and (max-width: 480px) {
+  .recipe-detail-container {
+    padding-top: 10rem;
+  }
   .recipe-info {
     text-align: center;
   }
 
   .recipe-name {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
 
   .section-title {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
   }
 
   .ingredients-list li,
   .recipe-instructions,
   .recipe-difficulty {
-    font-size: 1rem;
+    font-size: 0.8rem;
   }
 }
