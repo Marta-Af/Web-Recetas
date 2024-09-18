@@ -2,14 +2,16 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faShareAlt } from "@fortawesome/free-solid-svg-icons";
+import TortilladePatatas from "../images/TortilladePatatas.png";
 import Paella from "../images/Paella.png";
+import EnsaladaCesar from "../images/EnsaladaCesar.png";
 
 // Lista de recetas (puedes reemplazar esto con una solicitud a una API)
 const recipes = [
   {
     id: 1,
     name: "Ensalada César",
-    image: Paella,
+    image: EnsaladaCesar,
     ingredients: [
       "Lechuga",
       "Pollo",
@@ -17,18 +19,29 @@ const recipes = [
       "Queso parmesano",
       "Salsa César",
     ],
-    instructions:
-      "Mezcla todos los ingredientes y añade la salsa.Mezcla todos los ingredientes y añade la salsa.Mezcla todos los ingredientes y añade la salsa.Mezcla todos los ingredientes y añade la salsa.Mezcla todos los ingredientes y añade la salsa.Mezcla todos los ingredientes y añade la salsa.Mezcla todos los ingredientes y añade la salsa.Mezcla todos los ingredientes y añade la salsa.Mezcla todos los ingredientes y añade la salsa.Mezcla todos los ingredientes y añade la salsa.",
+    instructions: "Mezcla todos los ingredientes y añade la salsa.",
     difficulty: "Fácil",
+    time: "15 minutos",
   },
   {
     id: 2,
     name: "Paella",
-    image: "https://via.placeholder.com/150",
+    image: Paella,
     ingredients: ["Arroz", "Pollo", "Mariscos", "Verduras", "Caldo de pescado"],
     instructions:
       "Cocina el arroz con el caldo y añade los demás ingredientes.",
     difficulty: "Media",
+    time: "60 minutos",
+  },
+  {
+    id: 3,
+    name: "Tortilla de Patatas",
+    image: TortilladePatatas,
+    ingredients: ["Arroz", "Pollo", "Mariscos", "Verduras", "Caldo de pescado"],
+    instructions:
+      "Cocina el arroz con el caldo y añade los demás ingredientes.",
+    difficulty: "Media",
+    time: "60 minutos",
   },
   // Más recetas...
 ];
