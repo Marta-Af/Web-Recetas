@@ -1,0 +1,90 @@
+/* Contenedor del filtro */
+.container-input {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+/* Estilo de los inputs de búsqueda */
+.search-input {
+  width: 100%;
+  max-width: 300px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  transition: border-color 0.3s ease-in-out;
+}
+
+/* Efecto hover en inputs */
+.search-input:hover,
+.search-input:focus {
+  border-color: #aaa;
+  outline: none;
+}
+
+/* Select de ordenamiento */
+.sort-select {
+  width: 150px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: white;
+  transition: border-color 0.3s ease-in-out;
+}
+
+/* Efecto hover en el select */
+.sort-select:hover,
+.sort-select:focus {
+  border-color: #aaa;
+  outline: none;
+}
+.add-recipe-button {
+  background-color: transparent; /* Fondo transparente */
+  border: none; /* Sin bordes */
+  cursor: pointer;
+  color: rgb(82, 13, 243);
+  transition: color 0.3s ease;
+  margin: 1rem;
+  height: auto;
+}
+
+.edit-button:hover {
+  color: #ff9800; /* Cambiar color al hacer hover */
+}
+
+.edit-button .fa-edit {
+  font-size: 2rem; /* Tamaño del ícono */
+}
+
+/* Ajuste de diseño responsivo para tabletas */
+@media (max-width: 1024px) {
+  .container-input {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .search-input {
+    max-width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .sort-select {
+    width: 100%;
+  }
+}
+
+/* Ajuste de diseño responsivo para móviles */
+@media (max-width: 768px) {
+  .container-input {
+    gap: 0.5rem;
+  }
+
+  .search-input,
+  .sort-select {
+    width: 100%;
+  }
+}

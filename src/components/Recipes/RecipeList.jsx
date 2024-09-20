@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import TortilladePatatas from "../images/TortilladePatatas.png";
 import Paella from "../images/Paella.png";
 import EnsaladaCesar from "../images/EnsaladaCesar.png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import FilterBar from "../Forms/FilterBar";
 
 const recipes = [
   {
@@ -34,6 +33,41 @@ const recipes = [
   },
   {
     id: 3,
+    name: "Tortilla de Patatas",
+    image: TortilladePatatas,
+    ingredients: ["Arroz", "Pollo", "Mariscos", "Verduras", "Caldo de pescado"],
+    instructions:
+      "Cocina el arroz con el caldo y añade los demás ingredientes.Cocina el arroz con el caldo y añade los demás ingredientes.Cocina el arroz con el caldo y añade los demás ingredientes.Cocina el arroz con el caldo y añade los demás ingredientes.Cocina el arroz con el caldo y añade los demás ingredientes.Cocina el arroz con el caldo y añade los demás ingredientes.Cocina el arroz con el caldo y añade los demás ingredientes.Cocina el arroz con el caldo y añade los demás ingredientes.Cocina el arroz con el caldo y añade los demás ingredientes.",
+    difficulty: "Media",
+    time: "60 minutos",
+  },
+  {
+    id: 4,
+    name: "Ensalada César",
+    image: EnsaladaCesar,
+    ingredients: [
+      "Lechuga",
+      "Pollo",
+      "Crutones",
+      "Queso parmesano",
+      "Salsa César",
+    ],
+    instructions: "Mezcla todos los ingredientes y añade la salsa.",
+    difficulty: "Fácil",
+    time: "15 minutos",
+  },
+  {
+    id: 5,
+    name: "Paella",
+    image: Paella,
+    ingredients: ["Arroz", "Pollo", "Mariscos", "Verduras", "Caldo de pescado"],
+    instructions:
+      "Cocina el arroz con el caldo y añade los demás ingredientes.",
+    difficulty: "Media",
+    time: "60 minutos",
+  },
+  {
+    id: 6,
     name: "Tortilla de Patatas",
     image: TortilladePatatas,
     ingredients: ["Arroz", "Pollo", "Mariscos", "Verduras", "Caldo de pescado"],
@@ -96,35 +130,16 @@ const RecipesList = () => {
 
   return (
     <div className="recipes-container">
-      <div className="container-input">
-        {/* Filtro por nombre */}
-        <input
-          type="text"
-          placeholder="Buscar por nombre"
-          value={searchName}
-          onChange={(e) => setSearchName(e.target.value)}
-          className="search-input"
-        />
-        {/* Filtro por ingrediente */}
-        <input
-          type="text"
-          placeholder="Buscar por ingrediente"
-          value={searchIngredient}
-          onChange={(e) => setSearchIngredient(e.target.value)}
-          className="search-input"
-        />
-        <select
-          value={sortOrder}
-          onChange={handleSortChange}
-          className="sort-select"
-        >
-          <option value="A-Z">Ordenar A-Z</option>
-          <option value="Z-A">Ordenar Z-A</option>
-        </select>
-        <button className="add-recipe-button" onClick={handleAddRecipe}>
-          <FontAwesomeIcon icon={faPlus} size="2x" />
-        </button>
-      </div>
+      <FilterBar
+        searchName={searchName}
+        setSearchName={setSearchName}
+        searchIngredient={searchIngredient}
+        setSearchIngredient={setSearchIngredient}
+        sortOrder={sortOrder}
+        setSortOrder={setSortOrder}
+        handleSortChange={handleSortChange}
+      />
+
       <ul className="recipes-list">
         {filteredRecipes.length > 0 ? (
           filteredRecipes.map((recipe) => (

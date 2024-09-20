@@ -39,6 +39,41 @@ const recipes = [
     image: TortilladePatatas,
     ingredients: ["Arroz", "Pollo", "Mariscos", "Verduras", "Caldo de pescado"],
     instructions:
+      "Cocina el arroz con el caldo y añade los demás ingredientes.Cocina el arroz con el caldo y añade los demás ingredientes.Cocina el arroz con el caldo y añade los demás ingredientes.Cocina el arroz con el caldo y añade los demás ingredientes.Cocina el arroz con el caldo y añade los demás ingredientes.Cocina el arroz con el caldo y añade los demás ingredientes.Cocina el arroz con el caldo y añade los demás ingredientes.Cocina el arroz con el caldo y añade los demás ingredientes.Cocina el arroz con el caldo y añade los demás ingredientes.",
+    difficulty: "Media",
+    time: "60 minutos",
+  },
+  {
+    id: 4,
+    name: "Ensalada César",
+    image: EnsaladaCesar,
+    ingredients: [
+      "Lechuga",
+      "Pollo",
+      "Crutones",
+      "Queso parmesano",
+      "Salsa César",
+    ],
+    instructions: "Mezcla todos los ingredientes y añade la salsa.",
+    difficulty: "Fácil",
+    time: "15 minutos",
+  },
+  {
+    id: 5,
+    name: "Paella",
+    image: Paella,
+    ingredients: ["Arroz", "Pollo", "Mariscos", "Verduras", "Caldo de pescado"],
+    instructions:
+      "Cocina el arroz con el caldo y añade los demás ingredientes.",
+    difficulty: "Media",
+    time: "60 minutos",
+  },
+  {
+    id: 6,
+    name: "Tortilla de Patatas",
+    image: TortilladePatatas,
+    ingredients: ["Arroz", "Pollo", "Mariscos", "Verduras", "Caldo de pescado"],
+    instructions:
       "Cocina el arroz con el caldo y añade los demás ingredientes.",
     difficulty: "Media",
     time: "60 minutos",

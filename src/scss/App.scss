@@ -7,6 +7,8 @@
 @import "core/recipeList";
 @import "core/recipeDetail";
 @import "core/createRecipe";
+@import "core/filterBar";
+
 .app {
   display: flex;
   flex-direction: column;

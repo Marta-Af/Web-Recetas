@@ -3,7 +3,7 @@ footer {
   width: 100%;
   background-color: rgba(213, 241, 235, 0.9);
   border-top: 1.5px solid rgb(62, 140, 230);
-  padding: 1rem 0;
+  padding: 0.5rem 0;
   font-family: "Poppins", sans-serif;
   text-align: center; // Asegura que el contenido esté centrado
 
@@ -27,8 +27,8 @@ footer {
         transition: opacity 0.3s ease;
 
         img {
-          width: 2rem;
-          height: 2rem;
+          width: 1.5rem;
+          height: 1.5rem;
           transition: transform 0.3s ease;
 
           &:hover {
