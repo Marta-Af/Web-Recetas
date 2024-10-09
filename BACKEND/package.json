@@ -1,0 +1,26 @@
+{
+  "name": "server-webrecetas",
+  "version": "0.0.1",
+  "description": "EExpress servere for a Web Recipes aplication.",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "npx nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Marta-Af/Web-Recetas.git"
+  },
+  "author": "Marta Almeeida Ferreira",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Marta-Af/Web-Recetas/issues"
+  },
+  "homepage": "https://github.com/Marta-Af/Web-Recetas#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "mysql2": "^3.11.3"
+  }
+}

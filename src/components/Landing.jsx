@@ -9,7 +9,7 @@ function Landing() {
         <h3>Añade, busca facilmente, consulta y edita tu recetas favoritas</h3>
 
         <Link to="/Login" className="nav-link">
-          Login
+          Inicio sesión
         </Link>
       </div>
     </>

@@ -2,6 +2,8 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faShareAlt } from "@fortawesome/free-solid-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import TortilladePatatas from "../images/TortilladePatatas.png";
 import Paella from "../images/Paella.png";
 import EnsaladaCesar from "../images/EnsaladaCesar.png";
@@ -101,15 +103,27 @@ const RecipeDetail = () => {
         <div className="button-container">
           <button
             className="edit-button"
+            onClick={() => alert("Eliminar receta")}
+          >
+            <FontAwesomeIcon icon={faTrash} size="2x" />
+          </button>
+          <button
+            className="edit-button"
             onClick={() => alert("Editar receta")}
           >
             <FontAwesomeIcon icon={faEdit} size="2x" />
           </button>
           <button
             className="edit-button"
-            onClick={() => alert("Editar receta")}
+            onClick={() => alert("Compartir receta")}
           >
             <FontAwesomeIcon icon={faShareAlt} size="2x" />
+          </button>
+          <button
+            className="edit-button"
+            onClick={() => alert("Guardar como favorito")}
+          >
+            <FontAwesomeIcon icon={faHeart} size="2x" />
           </button>
         </div>
 
