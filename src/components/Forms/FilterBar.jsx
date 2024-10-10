@@ -11,13 +11,12 @@ const FilterBar = ({
   searchIngredient,
   setSearchIngredient,
   sortOrder,
+  setSortOrder,
   handleSortChange,
+  handleAddRecipe,
 }) => {
   const navigate = useNavigate();
 
-  const handleAddRecipe = () => {
-    navigate("/create-recipe");
-  };
   return (
     <div className="container-input">
       <input

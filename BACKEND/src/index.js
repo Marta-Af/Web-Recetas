@@ -1,12 +1,13 @@
 // IMPORTAR BIBLIOTECAS
 const express = require('express');
 const cors = require('cors');
+
 require('dotenv').config();
 const mysql = require('mysql2/promise');
 
 // CREAR VARIABLES
 const app = express();
-const port = process.env.PORT || 3000; // Asegúrate de que el puerto no sea 3306
+const port = process.env.PORT || 3000;
 
 // CONFIGURAMOS EXPRESS
 app.use(cors());
@@ -31,6 +32,7 @@ app.listen(port, () => {
 });
 
 // ENDPOINTS
+/// ENDPOINTS
 // Endpoint para obtener todas las recetas con ingredientes
 app.get('/api/recipes', async (req, res) => {
     const sql = `
@@ -55,10 +57,10 @@ app.get('/api/recipes', async (req, res) => {
             r.id;
     `;
 
+    let connection;
     try {
-        const connection = await getConnection(); // Obtener conexión
+        connection = await getConnection(); // Obtener conexión
         const [results] = await connection.query(sql); // Ejecutar la consulta
-        connection.end(); // Cerrar conexión
 
         // Mapeo directo de los resultados
         const recipes = results.map(row => ({
@@ -89,5 +91,9 @@ app.get('/api/recipes', async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: error.message });
+    } finally {
+        if (connection) {
+            await connection.end(); // Cerrar conexión
+        }
     }
 });
