@@ -16,7 +16,10 @@
     "@fortawesome/react-fontawesome": "^0.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.26.2"
+    "react-router-dom": "^6.26.2",
+    "mysql2": "^3.11.3"
+
+    
   },
   "devDependencies": {
     "@types/react": "^18.2.43",

@@ -1,0 +1,57 @@
+.edit-recipe-wrapper {
+  display: flex; /* Activar flexbox */
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center; /* Centrar verticalmente */
+  height: 100vh; /* Tomar toda la altura de la ventana */
+  background-color: #f8f8f8; /* Color de fondo opcional */
+}
+
+.edit-recipe-container {
+  width: 80%; /* O el ancho que desees */
+  max-width: 600px; /* Ancho máximo del contenedor */
+  padding: 20px; /* Espaciado interno */
+  border: 1px solid #ccc; /* Borde opcional */
+  border-radius: 8px; /* Bordes redondeados opcional */
+  background-color: #fff; /* Color de fondo del contenedor */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra opcional */
+}
+
+.edit-recipe-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333; /* Color del texto */
+}
+
+.edit-recipe-form {
+  width: 100%; /* Ancho completo */
+}
+
+.edit-recipe-form label {
+  display: block;
+  margin-bottom: 15px; /* Espaciado entre etiquetas */
+  font-weight: bold; /* Texto en negrita */
+}
+
+.edit-recipe-form input,
+.edit-recipe-form textarea,
+.edit-recipe-form select {
+  width: 100%; /* Ancho completo */
+  padding: 10px; /* Espaciado interno */
+  border: 1px solid #ccc; /* Borde */
+  border-radius: 4px; /* Bordes redondeados */
+  margin-top: 5px; /* Espaciado superior */
+}
+
+.edit-recipe-form button {
+  background-color: #28a745; /* Color del botón */
+  color: white; /* Color del texto */
+  border: none; /* Sin borde */
+  border-radius: 4px; /* Bordes redondeados */
+  padding: 10px 15px; /* Espaciado interno */
+  cursor: pointer; /* Cursor de puntero */
+  margin-top: 20px; /* Espaciado superior */
+}
+
+.edit-recipe-form button:hover {
+  background-color: #218838; /* Color del botón al pasar el ratón */
+}

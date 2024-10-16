@@ -1,103 +1,65 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faShareAlt } from "@fortawesome/free-solid-svg-icons";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import TortilladePatatas from "../images/TortilladePatatas.png";
-import Paella from "../images/Paella.png";
-import EnsaladaCesar from "../images/EnsaladaCesar.png";
-
-// Lista de recetas (puedes reemplazar esto con una solicitud a una API)
-const recipes = [
-  {
-    id: 1,
-    name: "Ensalada César",
-    image: EnsaladaCesar,
-    ingredients: [
-      "Lechuga",
-      "Pollo",
-      "Crutones",
-      "Queso parmesano",
-      "Salsa César",
-    ],
-    instructions: "Mezcla todos los ingredientes y añade la salsa.",
-    difficulty: "Fácil",
-    time: "15 minutos",
-  },
-  {
-    id: 2,
-    name: "Paella",
-    image: Paella,
-    ingredients: ["Arroz", "Pollo", "Mariscos", "Verduras", "Caldo de pescado"],
-    instructions:
-      "Cocina el arroz con el caldo y añade los demás ingredientes.",
-    difficulty: "Media",
-    time: "60 minutos",
-  },
-  {
-    id: 3,
-    name: "Tortilla de Patatas",
-    image: TortilladePatatas,
-    ingredients: ["Arroz", "Pollo", "Mariscos", "Verduras", "Caldo de pescado"],
-    instructions:
-      "Cocina el arroz con el caldo y añade los demás ingredientes.Cocina el arroz con el caldo y añade los demás ingredientes.Cocina el arroz con el caldo y añade los demás ingredientes.Cocina el arroz con el caldo y añade los demás ingredientes.Cocina el arroz con el caldo y añade los demás ingredientes.Cocina el arroz con el caldo y añade los demás ingredientes.Cocina el arroz con el caldo y añade los demás ingredientes.Cocina el arroz con el caldo y añade los demás ingredientes.Cocina el arroz con el caldo y añade los demás ingredientes.",
-    difficulty: "Media",
-    time: "60 minutos",
-  },
-  {
-    id: 4,
-    name: "Ensalada César",
-    image: EnsaladaCesar,
-    ingredients: [
-      "Lechuga",
-      "Pollo",
-      "Crutones",
-      "Queso parmesano",
-      "Salsa César",
-    ],
-    instructions: "Mezcla todos los ingredientes y añade la salsa.",
-    difficulty: "Fácil",
-    time: "15 minutos",
-  },
-  {
-    id: 5,
-    name: "Paella",
-    image: Paella,
-    ingredients: ["Arroz", "Pollo", "Mariscos", "Verduras", "Caldo de pescado"],
-    instructions:
-      "Cocina el arroz con el caldo y añade los demás ingredientes.",
-    difficulty: "Media",
-    time: "60 minutos",
-  },
-  {
-    id: 6,
-    name: "Tortilla de Patatas",
-    image: TortilladePatatas,
-    ingredients: ["Arroz", "Pollo", "Mariscos", "Verduras", "Caldo de pescado"],
-    instructions:
-      "Cocina el arroz con el caldo y añade los demás ingredientes.",
-    difficulty: "Media",
-    time: "60 minutos",
-  },
-  // Más recetas...
-];
+import {
+  faEdit,
+  faShareAlt,
+  faTrash,
+  faHeart,
+} from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 
 const RecipeDetail = () => {
   const { id } = useParams();
+  const [recipeData, setRecipeData] = useState(null); // Estado para almacenar la receta
+  const [loading, setLoading] = useState(true); // Estado para manejar el estado de carga
+  const [error, setError] = useState(null); // Estado para manejar errores
+  const navigate = useNavigate();
 
-  // Encuentra la receta por ID
-  const recipe = recipes.find((r) => r.id === parseInt(id));
+  useEffect(() => {
+    // Hacer la solicitud a la API cuando el componente se monta
+    const fetchRecipe = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/api/recipes/${id}`);
+        if (!response.ok) {
+          throw new Error("Error al obtener la receta");
+        }
+        const data = await response.json();
+
+        setRecipeData(data); // Guardar los datos de la receta en el estado
+        setLoading(false); // Desactivar el estado de carga
+      } catch (err) {
+        setError(err.message); // Guardar el mensaje de error
+        setLoading(false);
+      }
+    };
+
+    fetchRecipe();
+  }, [id]);
+
+  // Mostrar un mensaje de carga mientras los datos se obtienen
+  if (loading) {
+    return <div>Cargando receta...</div>;
+  }
+
+  // Mostrar un mensaje de error si hubo un problema
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   // Manejar el caso donde no se encuentra la receta
-  if (!recipe) {
+  if (!recipeData) {
     return <div>Receta no encontrada</div>;
   }
 
   return (
     <div className="recipe-detail-container">
       <div className="recipe-image-container">
-        <img src={recipe.image} alt={recipe.name} className="recipe-image" />
+        <img
+          src={recipeData.recipe_image}
+          alt={recipeData.recipe_name}
+          className="recipe-image"
+        />
       </div>
       <div className="recipe-info">
         <div className="button-container">
@@ -109,7 +71,7 @@ const RecipeDetail = () => {
           </button>
           <button
             className="edit-button"
-            onClick={() => alert("Editar receta")}
+            onClick={() => navigate(`/edit-recipe/${recipeData.id}`)}
           >
             <FontAwesomeIcon icon={faEdit} size="2x" />
           </button>
@@ -127,16 +89,19 @@ const RecipeDetail = () => {
           </button>
         </div>
 
-        <h2 className="recipe-name">{recipe.name}</h2>
+        <h2 className="recipe-name">{recipeData.recipe_name}</h2>
         <h3 className="section-title">Ingredientes</h3>
         <ul className="ingredients-list">
-          {recipe.ingredients.map((ingredient, index) => (
-            <li key={index}>{ingredient}</li>
+          {recipeData.ingredients.map((ingredient) => (
+            <li key={ingredient.ingredient_id}>
+              {ingredient.quantity} {ingredient.unit} de{" "}
+              {ingredient.ingredient_name}
+            </li>
           ))}
         </ul>
         <h3 className="section-title">Modo de empleo</h3>
-        <p className="recipe-instructions">{recipe.instructions}</p>
-        <p className="recipe-difficulty">Dificultad: {recipe.difficulty}</p>
+        <p className="recipe-instructions">{recipeData.recipe_instructions}</p>
+        <p className="recipe-difficulty">Dificultad: {recipeData.difficulty}</p>
       </div>
     </div>
   );

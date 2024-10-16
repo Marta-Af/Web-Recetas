@@ -2,7 +2,8 @@
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
-const mysql = require('mysql2/promise');
+const { updateRecipe } = require("./controllers/recipesController");
+const { getConnection } = require('./db'); // Importa getConnection desde db.js
 
 // CREAR VARIABLES
 const app = express();
@@ -13,18 +14,7 @@ app.use(cors());
 app.use(express.json({ limit: '25Mb' }));
 
 
-// Conectar a la base de datos
-const getConnection = async () => {
-  const connection = await mysql.createConnection({
-    host: process.env.MYSQL_HOST || 'localhost',
-    user: process.env.MYSQL_USER || 'root',
-    password: process.env.MYSQL_PASS,
-    database: process.env.MYSQL_SCHEMA || 'bd_recipes',
-  });
 
-  console.log(`Conexión establecida con la base de datos (identificador=${connection.threadId})`);
-  return connection;
-};
 
 // Endpoint para obtener todas las recetas con ingredientes
 app.get('/api/recipes', async (req, res) => {
@@ -150,6 +140,9 @@ app.get('/api/recipes/:id', async (req, res) => {
         }
     }
 });
+
+// Ruta para actualizar una receta
+app.put("/api/recipes/:id", updateRecipe);
 
 // Iniciar el servidor
 app.listen(port, () => {

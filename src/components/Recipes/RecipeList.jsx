@@ -23,7 +23,7 @@ const RecipesList = () => {
     };
 
     fetchRecipes();
-  }, []); // El array vacío asegura que se ejecute solo una vez al montar
+  }, []);
 
   const handleViewRecipe = (id) => {
     navigate(`/receta/${id}`);
@@ -40,7 +40,7 @@ const RecipesList = () => {
   const sortRecipes = (recipes) => {
     return [...recipes].sort((a, b) => {
       if (sortOrder === "A-Z") {
-        return a.recipe_name.localeCompare(b.recipe_name); // Usa el campo adecuado
+        return a.recipe_name.localeCompare(b.recipe_name);
       } else {
         return b.recipe_name.localeCompare(a.recipe_name); // Usa el campo adecuado
       }
@@ -108,7 +108,7 @@ const RecipesList = () => {
                   {recipe.ingredients.map((ingredient, index) => (
                     <li key={`${recipe.id}-${index}`}>
                       {ingredient.ingredient_name}
-                    </li> // Usa el campo adecuado
+                    </li>
                   ))}
                 </ul>
                 <h4>Modo de empleo:</h4>
