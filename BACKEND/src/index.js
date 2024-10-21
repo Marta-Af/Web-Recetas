@@ -2,8 +2,9 @@
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
-const { updateRecipe } = require("./controllers/recipesController");
+
 const { getConnection } = require('./db'); // Importa getConnection desde db.js
+const { updateRecipe, createRecipe } = require("./controllers/recipesController");
 
 // CREAR VARIABLES
 const app = express();
@@ -140,6 +141,8 @@ app.get('/api/recipes/:id', async (req, res) => {
         }
     }
 });
+// Ruta para crear una receta
+app.post("/api/recipes", createRecipe);
 
 // Ruta para actualizar una receta
 app.put("/api/recipes/:id", updateRecipe);
