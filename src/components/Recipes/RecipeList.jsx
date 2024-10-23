@@ -1,22 +1,20 @@
-import React, { useState, useEffect } from "react"; // Importar useEffect
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 import FilterBar from "../Forms/FilterBar";
 
 const RecipesList = () => {
   const navigate = useNavigate();
-  const [recipes, setRecipes] = useState([]); // Estado para las recetas
-  const [searchName, setSearchName] = useState(""); // Estado para búsqueda por nombre
-  const [searchIngredient, setSearchIngredient] = useState(""); // Estado para búsqueda por ingrediente
+  const [recipes, setRecipes] = useState([]);
+  const [searchName, setSearchName] = useState("");
+  const [searchIngredient, setSearchIngredient] = useState("");
   const [sortOrder, setSortOrder] = useState("A-Z");
 
-  // Efecto para obtener recetas de la API al montar el componente
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/recipes"); // Cambia la URL si es necesario
+        const response = await fetch("http://localhost:3000/api/recipes");
         const data = await response.json();
-        setRecipes(data.result); // Suponiendo que el resultado está en la propiedad "result"
+        setRecipes(data.result);
       } catch (error) {
         console.error("Error al obtener las recetas:", error);
       }
@@ -42,27 +40,25 @@ const RecipesList = () => {
       if (sortOrder === "A-Z") {
         return a.recipe_name.localeCompare(b.recipe_name);
       } else {
-        return b.recipe_name.localeCompare(a.recipe_name); // Usa el campo adecuado
+        return b.recipe_name.localeCompare(a.recipe_name);
       }
     });
   };
 
   // Filtro por nombre
   const filteredRecipesByName = sortRecipes(
-    recipes.filter(
-      (recipe) =>
-        recipe.recipe_name.toLowerCase().includes(searchName.toLowerCase()) // Usa el campo adecuado
+    recipes.filter((recipe) =>
+      recipe.recipe_name.toLowerCase().includes(searchName.toLowerCase())
     )
   );
 
   // Filtro por ingrediente
   const filteredRecipesByIngredient = sortRecipes(
     recipes.filter((recipe) =>
-      recipe.ingredients.some(
-        (ingredient) =>
-          ingredient.ingredient_name
-            .toLowerCase()
-            .includes(searchIngredient.toLowerCase()) // Usa el campo adecuado
+      recipe.ingredients.some((ingredient) =>
+        ingredient.ingredient_name
+          .toLowerCase()
+          .includes(searchIngredient.toLowerCase())
       )
     )
   );
@@ -95,12 +91,11 @@ const RecipesList = () => {
             >
               <div className="card-front">
                 <img
-                  src={recipe.recipe_image} // Usa el campo adecuado
-                  alt={recipe.recipe_name} // Usa el campo adecuado
+                  src={recipe.recipe_image}
+                  alt={recipe.recipe_name}
                   className="recipe-image"
                 />
-                <h3 className="recipe-name">{recipe.recipe_name}</h3>{" "}
-                {/* Usa el campo adecuado */}
+                <h3 className="recipe-name">{recipe.recipe_name}</h3>
               </div>
               <div className="card-back">
                 <h4>Ingredientes:</h4>
@@ -112,7 +107,7 @@ const RecipesList = () => {
                   ))}
                 </ul>
                 <h4>Modo de empleo:</h4>
-                <p>{recipe.instructions}</p>
+                <p>{recipe.recipe_instructions}</p>
                 <p>Dificultad: {recipe.difficulty}</p>
                 <p>Tiempo: {recipe.time}</p>
               </div>
