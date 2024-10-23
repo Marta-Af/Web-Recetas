@@ -1,9 +1,12 @@
 // IMPORTAR BIBLIOTECAS
 const express = require('express');
 const cors = require('cors');
+const multer = require('multer');
+const path = require('path');
+
 require('dotenv').config();
 
-const { getConnection } = require('./db'); // Importa getConnection desde db.js
+const { getConnection } = require('./db'); 
 const { updateRecipe, createRecipe } = require("./controllers/recipesController");
 
 // CREAR VARIABLES
@@ -13,9 +16,19 @@ const port = process.env.PORT || 3000;
 // CONFIGURAMOS EXPRESS
 app.use(cors());
 app.use(express.json({ limit: '25Mb' }));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+// Configurar multer para subir archivos
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, 'uploads'); 
+    },
+    filename: (req, file, cb) => {
+      cb(null, Date.now() + path.extname(file.originalname)); 
+    }
+});
 
-
+const upload = multer({ storage: storage });
 
 // Endpoint para obtener todas las recetas con ingredientes
 app.get('/api/recipes', async (req, res) => {
@@ -46,7 +59,6 @@ app.get('/api/recipes', async (req, res) => {
         connection = await getConnection();
         const [results] = await connection.query(sql);
         
-        // Mapeo directo de los resultados
         const recipes = results.map(row => ({
             id: row.recipe_id,
             recipe_name: row.recipe_name,
@@ -63,7 +75,6 @@ app.get('/api/recipes', async (req, res) => {
                                }))
         }));
 
-        // Eliminamos duplicados
         const uniqueRecipes = Array.from(new Map(recipes.map(item => [item.id, item])).values());
 
         res.json({
@@ -82,70 +93,8 @@ app.get('/api/recipes', async (req, res) => {
     }
 });
 
-// Endpoint para obtener una receta por ID
-app.get('/api/recipes/:id', async (req, res) => {
-    const { id } = req.params;
-    const sql = `
-        SELECT 
-            r.id AS recipe_id,
-            r.recipe_name,
-            r.recipe_image,
-            r.recipe_instructions,
-            r.difficulty,
-            r.time,
-            i.id AS ingredient_id,
-            i.ingredient_name,
-            ri.quantity,
-            ri.unit
-        FROM 
-            recipes r
-        LEFT JOIN 
-            recipe_ingredients ri ON r.id = ri.recipe_id
-        LEFT JOIN 
-            ingredients i ON ri.ingredient_id = i.id
-        WHERE 
-            r.id = ?;
-    `;
-
-    let connection;
-    try {
-        connection = await getConnection();
-        const [results] = await connection.query(sql, [id]);
-
-        if (results.length === 0) {
-            return res.status(404).json({ error: "Receta no encontrada" });
-        }
-
-        const recipe = {
-            id: results[0].recipe_id,
-            recipe_name: results[0].recipe_name,
-            recipe_image: results[0].recipe_image,
-            recipe_instructions: results[0].recipe_instructions,
-            difficulty: results[0].difficulty,
-            time: results[0].time,
-            ingredients: results.map(row => ({
-                ingredient_id: row.ingredient_id,
-                ingredient_name: row.ingredient_name,
-                quantity: row.quantity,
-                unit: row.unit
-            }))
-        };
-
-        res.json(recipe);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: error.message });
-    } finally {
-        if (connection) {
-            await connection.end();
-        }
-    }
-});
-// Ruta para crear una receta
-app.post("/api/recipes", createRecipe);
-
-// Ruta para actualizar una receta
-app.put("/api/recipes/:id", updateRecipe);
+// Endpoint para crear una receta
+app.post("/api/recipes", upload.single('recipe_image'), createRecipe);
 
 // Iniciar el servidor
 app.listen(port, () => {
