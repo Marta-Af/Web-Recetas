@@ -120,4 +120,64 @@ const createRecipe = async (req, res) => {
     }
 };
 
-module.exports = { updateRecipe, createRecipe, upload };
+// Controlador para obtener receta por ID
+const getRecipeById = async (req, res) => {
+    const recipeId = req.params.id;
+
+    const sql = `
+        SELECT 
+            r.id AS recipe_id,
+            r.recipe_name,
+            r.recipe_image,
+            r.recipe_instructions,
+            r.difficulty,
+            r.time,
+            i.id AS ingredient_id,
+            i.ingredient_name,
+            ri.quantity,
+            ri.unit
+        FROM 
+            recipes r
+        LEFT JOIN 
+            recipe_ingredients ri ON r.id = ri.recipe_id
+        LEFT JOIN 
+            ingredients i ON ri.ingredient_id = i.id
+        WHERE r.id = ?;
+    `;
+
+    let connection;
+    try {
+        connection = await getConnection();
+        const [results] = await connection.query(sql, [recipeId]);
+
+        if (results.length === 0) {
+            return res.status(404).json({ message: 'Receta no encontrada' });
+        }
+
+        const recipe = {
+            id: results[0].recipe_id,
+            recipe_name: results[0].recipe_name,
+            recipe_image: results[0].recipe_image,
+            recipe_instructions: results[0].recipe_instructions,
+            difficulty: results[0].difficulty,
+            time: results[0].time,
+            ingredients: results.map(ing => ({
+                ingredient_id: ing.ingredient_id,
+                ingredient_name: ing.ingredient_name,
+                quantity: ing.quantity,
+                unit: ing.unit
+            }))
+        };
+
+        res.json(recipe);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: error.message });
+    } finally {
+        if (connection) {
+            await connection.end();
+        }
+    }
+};
+
+module.exports = { updateRecipe, createRecipe, upload, getRecipeById };

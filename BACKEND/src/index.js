@@ -7,7 +7,7 @@ const path = require('path');
 require('dotenv').config();
 
 const { getConnection } = require('./db'); 
-const { updateRecipe, createRecipe } = require("./controllers/recipesController");
+const { getAllRecipes, getRecipeById, createRecipe, updateRecipe } = require("./controllers/recipesController");
 
 // CREAR VARIABLES
 const app = express();
@@ -18,6 +18,7 @@ app.use(cors());
 app.use(express.json({ limit: '25Mb' }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/uploads', express.static('uploads'));
+
 // Configurar multer para subir archivos
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -92,6 +93,9 @@ app.get('/api/recipes', async (req, res) => {
         }
     }
 });
+
+// Endpoint para obtener una receta por su ID**
+app.get('/api/recipes/:id', getRecipeById);
 
 // Endpoint para crear una receta
 app.post("/api/recipes", upload.single('recipe_image'), createRecipe);
