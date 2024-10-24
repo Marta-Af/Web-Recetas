@@ -17,7 +17,7 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json({ limit: '25Mb' }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
+app.use('/uploads', express.static('uploads'));
 // Configurar multer para subir archivos
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {

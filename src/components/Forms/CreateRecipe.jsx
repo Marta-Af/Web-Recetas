@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom"; // Importa useNavigate
 
 const CreateRecipe = () => {
   const [recipeName, setRecipeName] = useState("");
@@ -11,6 +12,8 @@ const CreateRecipe = () => {
   const [image, setImage] = useState(null);
   const [difficulty, setDifficulty] = useState("Fácil");
   const [time, setTime] = useState("");
+
+  const navigate = useNavigate(); // Hook para redirigir
 
   const handleAddIngredient = () => {
     setIngredients([
@@ -60,6 +63,9 @@ const CreateRecipe = () => {
 
       const data = await response.json();
       console.log("Receta creada:", data);
+
+      // Redirigir a la página RecipeList después de añadir correctamente
+      navigate("/recipelist");
     } catch (error) {
       console.error("Error al crear la receta:", error.message);
     }
@@ -105,16 +111,6 @@ const CreateRecipe = () => {
                 tabIndex={index * 5 + 2} // tabIndex para nombre del ingrediente
               />
               <input
-                type="text"
-                placeholder="Unidad"
-                value={ingredient.unit}
-                onChange={(e) =>
-                  handleIngredientChange(index, "unit", e.target.value)
-                }
-                className="input-text"
-                tabIndex={index * 5 + 3} // tabIndex para unidad
-              />
-              <input
                 type="number"
                 placeholder="Cantidad"
                 value={ingredient.quantity}
@@ -122,8 +118,19 @@ const CreateRecipe = () => {
                   handleIngredientChange(index, "quantity", e.target.value)
                 }
                 className="input-number"
-                tabIndex={index * 5 + 4} // tabIndex para cantidad
+                tabIndex={index * 5 + 3}
               />
+              <input
+                type="text"
+                placeholder="Unidad"
+                value={ingredient.unit}
+                onChange={(e) =>
+                  handleIngredientChange(index, "unit", e.target.value)
+                }
+                className="input-text"
+                tabIndex={index * 5 + 4} // tabIndex para unidad
+              />
+
               <FontAwesomeIcon
                 icon={faTrash}
                 onClick={() => handleRemoveIngredient(index)}

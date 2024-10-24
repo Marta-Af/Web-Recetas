@@ -91,7 +91,7 @@ const RecipesList = () => {
             >
               <div className="card-front">
                 <img
-                  src={recipe.recipe_image}
+                  src={`http://localhost:3000/uploads/${recipe.recipe_image}`}
                   alt={recipe.recipe_name}
                   className="recipe-image"
                 />
