@@ -7,8 +7,8 @@ import Register from "./InfoRegister/Register";
 import Footer from "./Footer";
 import RecipesList from "./Recipes/RecipeList";
 import RecipeDetail from "./Recipes/RecipeDetail";
-import CreateRecipe from "./Forms/CreateRecipe";
 import EditRecipe from "./Forms/EditRecipe";
+import CreateRecipe from "./Forms/CreateRecipe";
 
 function App() {
   return (
@@ -22,8 +22,6 @@ function App() {
           <Route path="/recipes" element={<RecipesList />} />
           <Route path="/create-recipe" element={<CreateRecipe />} />
           <Route path="/edit-recipe/:id" element={<EditRecipe />} />
-          <Route path="/edit-recipe/:id" element={<EditRecipe />} />
-
           <Route path="/register" element={<Register />} />
         </Routes>
       </div>

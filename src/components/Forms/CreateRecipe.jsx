@@ -65,7 +65,7 @@ const CreateRecipe = () => {
       console.log("Receta creada:", data);
 
       // Redirigir a la página RecipeList después de añadir correctamente
-      navigate("/recipelist");
+      navigate("/RecipeList");
     } catch (error) {
       console.error("Error al crear la receta:", error.message);
     }

@@ -4,6 +4,7 @@
   align-items: center; /* Centrar verticalmente */
   height: 100vh; /* Tomar toda la altura de la ventana */
   background-color: #f8f8f8; /* Color de fondo opcional */
+  overflow: auto; /* Habilitar desplazamiento si es necesario */
 }
 
 .edit-recipe-container {
@@ -14,6 +15,8 @@
   border-radius: 8px; /* Bordes redondeados opcional */
   background-color: #fff; /* Color de fondo del contenedor */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra opcional */
+  max-height: 90vh; /* Altura máxima para el contenedor */
+  overflow-y: auto; /* Desplazamiento vertical si es necesario */
 }
 
 .edit-recipe-title {
@@ -42,16 +45,31 @@
   margin-top: 5px; /* Espaciado superior */
 }
 
+/* Nuevas reglas para los ingredientes */
+.ingredient-row {
+  display: flex; /* Usar flexbox para la fila de ingredientes */
+  margin-bottom: 15px; /* Espaciado inferior */
+}
+
+.ingredient-row input {
+  flex: 1; /* Permite que todos los inputs tomen espacio igual */
+  margin-right: 5px; /* Espacio entre los inputs */
+}
+
+.ingredient-row input:last-child {
+  margin-right: 0; /* Quitar margen derecho al último input */
+}
+
 .edit-recipe-form button {
   background-color: #28a745; /* Color del botón */
   color: white; /* Color del texto */
   border: none; /* Sin borde */
   border-radius: 4px; /* Bordes redondeados */
   padding: 10px 15px; /* Espaciado interno */
-  cursor: pointer; /* Cursor de puntero */
-  margin-top: 20px; /* Espaciado superior */
+  cursor: pointer; /* Cambiar cursor a puntero */
+  margin-top: 10px; /* Espaciado superior */
 }
 
 .edit-recipe-form button:hover {
-  background-color: #218838; /* Color del botón al pasar el ratón */
+  background-color: #218838; /* Color del botón al pasar el cursor */
 }

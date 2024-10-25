@@ -211,15 +211,14 @@ const getRecipeById = async (req, res) => {
 
 
 // Controlador para eliminar la receta
-// Controlador para eliminar la receta
 const deleteRecipe = async (req, res) => {
     const { id } = req.params; // ID de la receta a eliminar
     let connection;
 
     try {
-        connection = await getConnection(); // Obtener la conexión a la base de datos
+        connection = await getConnection(); 
 
-        // Primero, elimina las entradas relacionadas en recipe_ingredients
+        // Eliminar entradas relacionadas en recipe_ingredients
         await connection.query('DELETE FROM recipe_ingredients WHERE recipe_id = ?', [id]);
 
         // Luego, elimina la receta
@@ -230,13 +229,13 @@ const deleteRecipe = async (req, res) => {
             return res.status(404).json({ message: 'Receta no encontrada' });
         }
 
-        res.status(204).send(); // No hay contenido para enviar en la respuesta
+        res.status(204).send(); 
     } catch (error) {
         console.error('Error al eliminar la receta:', error); // Para el debugging
         res.status(500).json({ message: 'Error al eliminar la receta', error });
     } finally {
         if (connection) {
-            await connection.end(); // Cierra la conexión
+            await connection.end(); 
         }
     }
 };
