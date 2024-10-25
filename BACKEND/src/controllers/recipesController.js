@@ -1,4 +1,4 @@
-const { getConnection } = require('../db'); 
+const { getConnection } = require('../db');
 const multer = require('multer');
 const path = require('path');
 
@@ -16,8 +16,14 @@ const upload = multer({ storage: storage });
 
 // Controlador para actualizar una receta
 const updateRecipe = async (req, res) => {
-    const { id } = req.params;
-    const { recipe_name, recipe_instructions, difficulty, time } = req.body;
+    const { id } = req.params; // ID de la receta a actualizar
+    const { recipe_name, recipe_instructions, difficulty, time, ingredients } = req.body;
+
+    // Validar que todos los campos sean obligatorios
+    if (!recipe_name || !recipe_instructions || !difficulty || !time || !Array.isArray(ingredients) || ingredients.length === 0) {
+        return res.status(400).json({ error: "Todos los campos son obligatorios y deben incluir al menos un ingrediente" });
+    }
+    
 
     const sql = `
         UPDATE recipes
@@ -28,23 +34,46 @@ const updateRecipe = async (req, res) => {
     let connection;
     try {
         connection = await getConnection();
+        
         const [result] = await connection.query(sql, [
             recipe_name,
-            req.file ? req.file.filename : null,
+            req.file ? req.file.filename : null, // Solo se incluye si hay una imagen
             recipe_instructions,
             difficulty,
             time,
             id
         ]);
 
+        // Verificar si la receta fue actualizada
         if (result.affectedRows === 0) {
             return res.status(404).json({ error: "Receta no encontrada" });
         }
 
-        res.status(200).json({ message: "Receta actualizada con éxito" });
+        // Actualizar ingredientes
+        const ingredientQueries = [];
+        for (const ingredient of ingredients) {
+            const { ingredient_id, quantity, unit } = ingredient;
+
+            // Validar que los ingredientes tengan id, cantidad y unidad
+            if (!ingredient_id || !quantity || !unit) {
+                return res.status(400).json({ error: "Cada ingrediente debe tener id, cantidad y unidad" });
+            }
+
+            ingredientQueries.push(
+                connection.query(
+                    `INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES (?, ?, ?, ?)
+                     ON DUPLICATE KEY UPDATE quantity = ?, unit = ?`,
+                    [id, ingredient_id, quantity, unit, quantity, unit] // Si ya existe, actualiza cantidad y unidad
+                )
+            );
+        }
+
+        await Promise.allSettled(ingredientQueries);
+
+        res.status(200).json({ message: "Receta actualizada exitosamente" });
     } catch (error) {
         console.error("Error al actualizar la receta:", error);
-        res.status(500).json({ error: "Error interno del servidor" });
+        res.status(500).json({ message: "Error interno del servidor" });
     } finally {
         if (connection) {
             await connection.end();
@@ -180,4 +209,39 @@ const getRecipeById = async (req, res) => {
     }
 };
 
-module.exports = { updateRecipe, createRecipe, upload, getRecipeById };
+
+// Controlador para eliminar la receta
+// Controlador para eliminar la receta
+const deleteRecipe = async (req, res) => {
+    const { id } = req.params; // ID de la receta a eliminar
+    let connection;
+
+    try {
+        connection = await getConnection(); // Obtener la conexión a la base de datos
+
+        // Primero, elimina las entradas relacionadas en recipe_ingredients
+        await connection.query('DELETE FROM recipe_ingredients WHERE recipe_id = ?', [id]);
+
+        // Luego, elimina la receta
+        const [result] = await connection.query('DELETE FROM recipes WHERE id = ?', [id]);
+        
+        // Verificar si la receta fue eliminada
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ message: 'Receta no encontrada' });
+        }
+
+        res.status(204).send(); // No hay contenido para enviar en la respuesta
+    } catch (error) {
+        console.error('Error al eliminar la receta:', error); // Para el debugging
+        res.status(500).json({ message: 'Error al eliminar la receta', error });
+    } finally {
+        if (connection) {
+            await connection.end(); // Cierra la conexión
+        }
+    }
+};
+
+
+
+
+module.exports = { updateRecipe, createRecipe, upload, getRecipeById, deleteRecipe };

@@ -7,7 +7,7 @@ const path = require('path');
 require('dotenv').config();
 
 const { getConnection } = require('./db'); 
-const { getAllRecipes, getRecipeById, createRecipe, updateRecipe } = require("./controllers/recipesController");
+const { getAllRecipes, getRecipeById, createRecipe, updateRecipe, deleteRecipe } = require("./controllers/recipesController");
 
 // CREAR VARIABLES
 const app = express();
@@ -99,6 +99,12 @@ app.get('/api/recipes/:id', getRecipeById);
 
 // Endpoint para crear una receta
 app.post("/api/recipes", upload.single('recipe_image'), createRecipe);
+
+// Ruta para actualizar una receta
+app.put('/api/recipes/:id', updateRecipe); 
+
+// Ruta para eliminar la receta
+app.delete('/api/recipes/:id', deleteRecipe);
 
 // Iniciar el servidor
 app.listen(port, () => {
