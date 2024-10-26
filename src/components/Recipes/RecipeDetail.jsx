@@ -9,6 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import { useNavigate } from "react-router-dom";
+import { useFavorites } from "../contexts/FavoritesContext";
 
 const RecipeDetail = () => {
   const { id } = useParams();
@@ -16,6 +17,7 @@ const RecipeDetail = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const { addFavorite, removeFavorite, isFavorite } = useFavorites();
 
   useEffect(() => {
     const fetchRecipe = async () => {
@@ -90,6 +92,13 @@ const RecipeDetail = () => {
     return <div>Receta no encontrada</div>;
   }
 
+  const handleFavoriteClick = () => {
+    if (isFavorite(recipeData.id)) {
+      removeFavorite(recipeData.id);
+    } else {
+      addFavorite(recipeData);
+    }
+  };
   return (
     <div className="recipe-detail-container">
       <div className="recipe-image-container">
@@ -116,11 +125,12 @@ const RecipeDetail = () => {
           <button className="edit-button" onClick={handleShareLink}>
             <FontAwesomeIcon icon={faLink} size="2x" />
           </button>
-          <button
-            className="edit-button"
-            onClick={() => alert("Guardar como favorito")}
-          >
-            <FontAwesomeIcon icon={faHeart} size="2x" />
+          <button className="edit-button" onClick={handleFavoriteClick}>
+            <FontAwesomeIcon
+              icon={faHeart}
+              color={isFavorite(recipeData.id) ? "red" : "gray"}
+              size="2x"
+            />
           </button>
         </div>
         <h2>{recipeData.recipe_name}</h2>

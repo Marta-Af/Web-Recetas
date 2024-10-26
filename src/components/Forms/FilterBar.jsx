@@ -2,7 +2,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 
 const FilterBar = ({
@@ -16,6 +16,10 @@ const FilterBar = ({
   handleAddRecipe,
 }) => {
   const navigate = useNavigate();
+
+  const handleGoToFavorites = () => {
+    navigate("/favorites"); // Asegúrate de que "/favorites" coincida con la ruta de favoritos en tu enrutador
+  };
 
   return (
     <div className="container-input">
@@ -43,6 +47,9 @@ const FilterBar = ({
       </select>
       <button className="add-recipe-button" onClick={handleAddRecipe}>
         <FontAwesomeIcon icon={faPlus} size="2x" />
+      </button>
+      <button className="edit-button" onClick={handleGoToFavorites}>
+        <FontAwesomeIcon icon={faHeart} size="2x" />
       </button>
     </div>
   );
