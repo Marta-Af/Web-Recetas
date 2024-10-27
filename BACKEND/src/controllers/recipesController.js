@@ -16,14 +16,17 @@ const upload = multer({ storage: storage });
 
 // Controlador para actualizar una receta
 const updateRecipe = async (req, res) => {
-    const { id } = req.params; // ID de la receta a actualizar
+    const { id } = req.params; 
     const { recipe_name, recipe_instructions, difficulty, time, ingredients } = req.body;
+
+    console.log("ID de la receta a actualizar:", id);
+    console.log("Datos recibidos para actualizar:", { recipe_name, recipe_instructions, difficulty, time, ingredients });
 
     // Validar que todos los campos sean obligatorios
     if (!recipe_name || !recipe_instructions || !difficulty || !time || !Array.isArray(ingredients) || ingredients.length === 0) {
+        console.log("Validación fallida: Campos obligatorios faltantes o ingredientes no válidos.");
         return res.status(400).json({ error: "Todos los campos son obligatorios y deben incluir al menos un ingrediente" });
     }
-    
 
     const sql = `
         UPDATE recipes
@@ -34,7 +37,7 @@ const updateRecipe = async (req, res) => {
     let connection;
     try {
         connection = await getConnection();
-        
+
         const [result] = await connection.query(sql, [
             recipe_name,
             req.file ? req.file.filename : null, // Solo se incluye si hay una imagen
@@ -44,18 +47,21 @@ const updateRecipe = async (req, res) => {
             id
         ]);
 
-        // Verificar si la receta fue actualizada
+        console.log("Resultado de la actualización de receta:", result);
+
         if (result.affectedRows === 0) {
+            console.log("No se encontró la receta a actualizar.");
             return res.status(404).json({ error: "Receta no encontrada" });
         }
 
-        // Actualizar ingredientes
         const ingredientQueries = [];
         for (const ingredient of ingredients) {
             const { ingredient_id, quantity, unit } = ingredient;
+            console.log("Ingrediente a actualizar:", ingredient);
 
-            // Validar que los ingredientes tengan id, cantidad y unidad
+            // Validación de ingrediente
             if (!ingredient_id || !quantity || !unit) {
+                console.log("Ingrediente inválido:", ingredient);
                 return res.status(400).json({ error: "Cada ingrediente debe tener id, cantidad y unidad" });
             }
 
@@ -63,12 +69,14 @@ const updateRecipe = async (req, res) => {
                 connection.query(
                     `INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES (?, ?, ?, ?)
                      ON DUPLICATE KEY UPDATE quantity = ?, unit = ?`,
-                    [id, ingredient_id, quantity, unit, quantity, unit] // Si ya existe, actualiza cantidad y unidad
+                    [id, ingredient_id, quantity, unit, quantity, unit]
                 )
             );
         }
 
-        await Promise.allSettled(ingredientQueries);
+        // Ejecutar las consultas de ingredientes y loggear el resultado
+        const ingredientResults = await Promise.allSettled(ingredientQueries);
+        console.log("Resultados de actualización de ingredientes:", ingredientResults);
 
         res.status(200).json({ message: "Receta actualizada exitosamente" });
     } catch (error) {
@@ -80,6 +88,7 @@ const updateRecipe = async (req, res) => {
         }
     }
 };
+
 
 // Controlador para crear una nueva receta
 const createRecipe = async (req, res) => {
